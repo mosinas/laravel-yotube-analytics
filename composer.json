@@ -1,6 +1,6 @@
 {
-    "name": "mosinas/laravel-google-service",
-    "description": "Google Service wrapper package for laravel 6 support",
+    "name": "mosinas/laravel-youtube-analytics-service",
+    "description": "Youtube Analytics wrapper package for laravel 6 support",
     "keywords": ["laravel", "google", "cloud platform"],
     "license": "MIT",
     "authors": [
@@ -22,6 +22,12 @@
         "psr-4": {
             "mosinas\\GoogleService\\": "src/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "stable",
     "prefer-stable": true
