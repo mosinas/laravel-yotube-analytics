@@ -1,9 +1,9 @@
 <?php
 
-namespace mosinas\GoogleService\Facades;
+namespace mosinas\YoutubeAnalyticsService\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use mosinas\GoogleService\YoutubeAnalytics;
+use mosinas\YoutubeAnalyticsService\YoutubeAnalytics;
 
 class YoutubeAnalyticsFacade extends Facade
 {

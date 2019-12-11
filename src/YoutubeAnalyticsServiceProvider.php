@@ -1,6 +1,6 @@
 <?php
 
-namespace mosinas\GoogleService;
+namespace mosinas\YoutubeAnalyticsService;
 
 use Illuminate\Support\ServiceProvider;
 

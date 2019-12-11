@@ -1,8 +1,10 @@
 <?php
 
 
-namespace mosinas\GoogleService;
+namespace mosinas\YoutubeAnalyticsService;
 
+
+use Illuminate\Support\Arr;
 
 class YoutubeAnalytics
 {
