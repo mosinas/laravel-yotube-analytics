@@ -1,9 +1,8 @@
 <?php
 
-namespace mosinas\YoutubeAnalyticsService\Facades;
+namespace Mosinas\YoutubeAnalytics\Facade;
 
 use Illuminate\Support\Facades\Facade;
-use mosinas\YoutubeAnalyticsService\YoutubeAnalytics;
 
 class YoutubeAnalyticsFacade extends Facade
 {
@@ -14,6 +13,6 @@ class YoutubeAnalyticsFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return YoutubeAnalytics::class;
+        return 'Mosinas\YoutubeAnalytics\YoutubeAnalytics::class';
     }
 }

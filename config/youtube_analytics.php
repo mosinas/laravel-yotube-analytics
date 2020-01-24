@@ -18,7 +18,12 @@ return [
     'client_id' => env('GOOGLE_CLIENT_ID', ''),
     'client_secret' => env('GOOGLE_CLIENT_SECRET', ''),
     'redirect_uri' => env('GOOGLE_REDIRECT', ''),
-    'scopes' => [],
+    'scopes' => [
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/youtube.readonly',
+        'https://www.googleapis.com/auth/yt-analytics.readonly',
+    ],
     'access_type' => 'online',
     'approval_prompt' => 'auto',
     /*
@@ -63,4 +68,11 @@ return [
     |
     */
     'config' => [],
+
+    'cache_lifetime' => env('GOOGLE_SERVICE_CACHE_LIFITIME', 60*60*24),
+
+    'use_cache' => env('GOOGLE_SERVICE_USE_CACHE', false),
+    'cache' => [
+        'store' => env('GOOGLE_SERVICE_CACHE', 'file'),
+    ]
 ];

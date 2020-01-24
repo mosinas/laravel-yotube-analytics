@@ -1,36 +1,54 @@
 {
-    "name": "mosinas/laravel-youtube-analytics",
-    "description": "Youtube Analytics wrapper package for laravel 6 support",
-    "keywords": ["laravel", "google", "cloud platform"],
-    "license": "MIT",
-    "version": "0.1",
-    "authors": [
-        {
-            "name": "mosinas",
-            "email": "mosinas@yandex.ru"
-        }
-    ],
-    "require": {
-        "php": ">=7.2",
-        "google/apiclient": "^2.4.0",
-        "illuminate/support": "6.7.*"
-    },
-    "require-dev": {
-        "league/flysystem": ">=1.0.8",
-        "mockery/mockery": "^1.3.0",
-        "orchestra/testbench": "^4.4.1",
-        "phpunit/phpunit": "^8.5.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "mosinas\\GoogleService\\": "src/"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "minimum-stability": "dev"
+  "name": "mosinas/youtube-analytics",
+  "description": "Youtube Analytics wrapper package for laravel 6 support",
+  "keywords": [
+    "laravel",
+    "google",
+    "cloud platform"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mosin Alexander",
+      "email": "mosinas@yandex.ru"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "google/apiclient": "^2.4.0",
+    "illuminate/support": "6.6.*",
+    "symfony/cache": "^5.0"
+  },
+  "require-dev": {
+    "league/flysystem": ">=1.0.8",
+    "mockery/mockery": "^1.3.0",
+    "orchestra/testbench": "^4.4.1",
+    "phpunit/phpunit": "^8.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mosinas\\YoutubeAnalytics\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mosinas\\YoutubeAnalytics\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "aliases": {
+        "YoutubeAnalytics": "Mosinas\\YoutubeAnalytics\\Facade"
+      },
+      "providers": [
+        "Mosinas\\YoutubeAnalytics\\YoutubeAnalyticsServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
 }
