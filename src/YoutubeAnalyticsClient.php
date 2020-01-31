@@ -160,6 +160,11 @@ class YoutubeAnalyticsClient
         return $this->setParam('sort', $sort);
     }
 
+    public function setParamMaxResult($maxResult)
+    {
+        return $this->setParam('maxResults', $maxResult);
+    }
+
     public function clearParams()
     {
         $this->params = [];
