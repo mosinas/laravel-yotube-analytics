@@ -145,9 +145,20 @@ class YoutubeAnalyticsClient
         return $this->setParam('metrics', implode(',', $metrics));
     }
 
-    public function setParamFilters(array $filters, $field='video')
+    /**
+     * @param  array  $arrayFilters ['filterKey' => ['filterValue1', 'filterValue2']]
+     * @return $this
+     */
+    public function setParamFilters(array $arrayFilters)
     {
-        return $this->setParam('filters', $field . '==' . implode(',', $filters));
+        $filters = [];
+        foreach ($arrayFilters as $key => $filter) {
+            $filters []= $key . '==' . implode(',', $filter);
+        }
+        $filters = implode(';', $filters);
+
+
+        return $this->setParam('filters', $filters);
     }
 
     public function setParamDimensions(array $dimensions)
