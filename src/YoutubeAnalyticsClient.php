@@ -86,9 +86,10 @@ class YoutubeAnalyticsClient
         return $this->service->serviceName ? true : false;
     }
 
-    public function refreshToken($accessToken)
+    public function refreshToken()
     {
-        return $this->client->refreshToken($accessToken);
+        $this->client->refreshToken($this->client->getRefreshToken());
+        return $this->client->getAccessToken();
     }
 
     public function getService()
