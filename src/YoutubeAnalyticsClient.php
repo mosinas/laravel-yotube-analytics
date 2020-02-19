@@ -189,6 +189,14 @@ class YoutubeAnalyticsClient
             throw new YoutubeAnalyticsException('Empty options params empty');
         }
 
+        if(!$this->service) {
+            $this->initService($this->accessToken);
+        }
+
+        if(!$this->service) {
+            throw new YoutubeAnalyticsException('It is not possible to initialize the client Youtube Analytics');
+        }
+
         $this->response = $this->service->reports->query($this->params);
 
         return $this;
