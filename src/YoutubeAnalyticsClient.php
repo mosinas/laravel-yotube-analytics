@@ -70,7 +70,11 @@ class YoutubeAnalyticsClient
 
     public function initService($accessToken)
     {
-        $this->client->setAccessToken($accessToken);
+        try {
+            $this->client->setAccessToken($accessToken);
+        } catch (\InvalidArgumentException $e) {
+            throw new InvalidConfigurationException($e->getMessage(), $e->getCode());
+        }
 
         if($this->client->isAccessTokenExpired()) {
             throw new AccessTokenExpiredException('access token is expired');
