@@ -194,10 +194,6 @@ class YoutubeAnalyticsClient
         }
 
         if(!$this->service) {
-            $this->initService($this->accessToken);
-        }
-
-        if(!$this->service) {
             throw new YoutubeAnalyticsException('It is not possible to initialize the client Youtube Analytics');
         }
 
