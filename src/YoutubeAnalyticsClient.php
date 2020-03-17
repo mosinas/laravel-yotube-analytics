@@ -6,6 +6,8 @@ namespace Mosinas\YoutubeAnalytics;
 use Illuminate\Contracts\Cache\Repository;
 use Mosinas\YoutubeAnalytics\Exceptions\YoutubeAnalyticsException;
 use Mosinas\YoutubeAnalytics\Exceptions\AccessTokenExpiredException;
+use Mosinas\YoutubeAnalytics\Exceptions\InvalidConfigurationException;
+use Mosinas\YoutubeAnalytics\Exceptions\NotValidAccessToken;
 
 class YoutubeAnalyticsClient
 {
@@ -39,6 +41,9 @@ class YoutubeAnalyticsClient
 
     protected $params;
 
+    protected $isTokenRefreshed;
+
+
     /** @var \Google_Service_YouTubeAnalytics_QueryResponse response */
     protected $response = [];
 
@@ -52,6 +57,8 @@ class YoutubeAnalyticsClient
         $this->client = $client;
 
         $this->cache = $cache;
+
+        $this->isTokenRefreshed = false;
     }
 
     /**
@@ -70,6 +77,8 @@ class YoutubeAnalyticsClient
 
     public function initService($accessToken)
     {
+        $accessToken  = json_decode($accessToken, true);
+
         try {
             $this->client->setAccessToken($accessToken);
         } catch (\InvalidArgumentException $e) {
@@ -77,7 +86,9 @@ class YoutubeAnalyticsClient
         }
 
         if($this->client->isAccessTokenExpired()) {
-            throw new AccessTokenExpiredException('access token is expired');
+//            throw new AccessTokenExpiredException('access token is expired');
+            $this->accessToken = $this->refreshToken();
+            $this->isTokenRefreshed = true;
         }
 
         $this->service = new \Google_Service_YouTubeAnalytics($this->client);
@@ -93,7 +104,12 @@ class YoutubeAnalyticsClient
     public function refreshToken()
     {
         $this->client->refreshToken($this->client->getRefreshToken());
-        return $this->client->getAccessToken();
+
+        $token = $this->client->getAccessToken();
+
+//        $this->client->setAccessToken($token);
+
+        return $token;
     }
 
     public function getService()
@@ -117,11 +133,6 @@ class YoutubeAnalyticsClient
         $this->videoIds = $videoIds;
 
         return $this;
-    }
-
-    public function setCache()
-    {
-
     }
 
     protected function setParam($key, $value)
@@ -197,7 +208,18 @@ class YoutubeAnalyticsClient
             throw new YoutubeAnalyticsException('It is not possible to initialize the client Youtube Analytics');
         }
 
-        $this->response = $this->service->reports->query($this->params);
+        try {
+            $this->response = $this->service->reports->query($this->params);
+        } catch (\Google_Service_Exception $e) {
+            $errorMsg = json_decode($e->getMessage(), true);
+
+            if($errorMsg['error'] === 'invalid_grant') {
+                throw new NotValidAccessToken('Not valid access token');
+            } else {
+                throw new YoutubeAnalyticsException($e->getMessage());
+            }
+
+        }
 
         return $this;
     }
@@ -244,5 +266,15 @@ class YoutubeAnalyticsClient
 
 
         return $transformResponse;
+    }
+
+    public function isTokenRefreshed()
+    {
+        return $this->isTokenRefreshed;
+    }
+
+    public function getToken()
+    {
+        return $this->accessToken;
     }
 }

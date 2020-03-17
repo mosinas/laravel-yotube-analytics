@@ -20,24 +20,6 @@ class YoutubeAnalyticsServiceProvider extends ServiceProvider
             return YoutubeAnalyticsClientFactory::createForConfig($analyticsConfig);
         });
 
-//        $this->app->bind(YoutubeAnalytics::class, function () {
-//            $analyticsConfig = config('youtube-analytics');
-//
-//
-//            $client = app(YoutubeAnalyticsClient::class);
-//
-//            return new YoutubeAnalyticsClient($client, $analyticsConfig);
-//        });
-
         $this->app->alias(YoutubeAnalyticsClient::class, 'youtube-analytics');
-
-//        $this->mergeConfigFrom(__DIR__.'/../config/analytics.php', 'analytics');
-//
-//        $this->app->bind('youtube-analytics', function ($app) {
-//            /** @var Application $app */
-//            $config = config('youtube_analyticsxw');
-//
-//            return YoutubeAnalyticsClientFactory::createAuthenticatedGoogleClient($config);
-//        });
     }
 }

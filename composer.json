@@ -17,7 +17,8 @@
     "php": ">=7.2",
     "google/apiclient": "^2.4.0",
     "illuminate/support": "6.6.*",
-    "symfony/cache": "^5.0"
+    "symfony/cache": "^5.0",
+    "ext-json": "*"
   },
   "require-dev": {
     "league/flysystem": ">=1.0.8",
